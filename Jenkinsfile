@@ -8,6 +8,11 @@ pipeline {
                     url: 'https://github.com/ipler/certification_task.git'
                 }
             }
+            stage('Command') {
+                steps {
+                    sh 'ls -la /'
+                }
+            }
         }
     }
 }
