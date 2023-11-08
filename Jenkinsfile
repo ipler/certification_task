@@ -5,7 +5,7 @@ pipeline {
             steps {
                 git branch: 'main',
                 credentialsId: 'dd81dd43-34ad-49e5-825d-ce553906822f',
-                url: 'https://github.com/ipler/certification_task.git'
+                url: 'git@github.com:ipler/certification_task.git'
             }
         }
         stage('Command') {
