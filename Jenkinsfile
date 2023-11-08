@@ -23,7 +23,7 @@ pipeline {
                 ]]) {
                     sh """
                     terraform init terraform
-                    terraform plan -var "profile=user_1 terraform                  
+                    terraform plan -var 'profile=user_1' -auto-approve terraform                  
                     """
                 }
             }
