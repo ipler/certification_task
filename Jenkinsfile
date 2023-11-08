@@ -13,16 +13,12 @@ pipeline {
                 sh 'echo "SUCCESS"'
             }
         }
-    }
-    tools {
-        terraform 'terraform-162'
-    }
-    stages {
-        stage ('Terraform Init') {
+        stage('Terraform') {
             steps {
                 sh 'terraform init ./terraform'
                 sh 'terraform plan ./terraform'
             }
-        }
+        }        
     }
+    
 }
