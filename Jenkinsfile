@@ -21,8 +21,10 @@ pipeline {
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                 ]]) {
-                    sh 'terraform init ./terraform'
-                    sh 'terraform plan ./terraform'
+                    sh """
+                    terraform init terraform
+                    terraform plan -var "profile=user_1 terraform                  
+                    """
                 }
             }
         }        
