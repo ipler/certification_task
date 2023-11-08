@@ -14,4 +14,15 @@ pipeline {
             }
         }
     }
+    tools {
+        terraform 'terraform-162'
+    }
+    stages {
+        stage ('Terraform Init') {
+            steps {
+                sh 'terraform init ./terraform'
+                sh 'terraform plan ./terraform'
+            }
+        }
+    }
 }
