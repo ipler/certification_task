@@ -15,8 +15,14 @@ pipeline {
         }
         stage('Terraform') {
             steps {
-                sh 'terraform init ./terraform'
-                sh 'terraform plan ./terraform'
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: '8673bf69-dada-4325-b294-0380ba495d02',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
+                    sh 'aws s3 ls'
+                }
             }
         }        
     }
