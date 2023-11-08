@@ -23,7 +23,7 @@ pipeline {
                 ]]) {
                     sh """
                     terraform -chdir='./terraform' init
-                    terraform -chdir='./terraform' plan -var 'name=prod' -var 'profile=user_1' -auto-approve                 
+                    terraform -chdir='./terraform' plan -auto-approve                 
                     """
                 }
             }
