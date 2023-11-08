@@ -22,8 +22,8 @@ pipeline {
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                 ]]) {
                     sh """
-                    terraform init terraform
-                    terraform plan -var 'profile=user_1' -auto-approve terraform                  
+                    terraform -chdir='./terraform' init
+                    terraform -chdir='./terraform' plan -var 'profile=user_1' -auto-approve terraform                  
                     """
                 }
             }
