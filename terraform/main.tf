@@ -48,5 +48,31 @@ resource "aws_instance" "build" {
     volume_type = "gp2"
   }
   key_name = "aws___key_pair_rsa_1_"
-  
+  provisioner "local-exec" {
+    command = "<<EOF
+    echo '[build]' >> ./ansible/hosts
+    echo ${aws_instance.build[0].public_ip} >> ./ansible/hosts
+    EOF"  
+  }
+}
+
+# Create instance for Deploy.
+resource "aws_instance" "prod" {
+  count         = var.quantity
+  ami           = "ami-0fe8bec493a81c7da"
+  instance_type = var.instance_type
+  associate_public_ip_address = true
+  tags = merge( { Name = "prod" }, var.tags )
+  vpc_security_group_ids = [aws_security_group.allow_22_80_8080_open.id]
+  root_block_device {
+    volume_size = 10
+    volume_type = "gp2"
+  }
+  key_name = "aws___key_pair_rsa_1_"
+  provisioner "local-exec" {
+    command = "<<EOF
+    echo '[prod]' >> ./ansible/hosts
+    echo ${aws_instance.prod[0].public_ip} >> ./ansible/hosts
+    EOF"  
+  }
 }
