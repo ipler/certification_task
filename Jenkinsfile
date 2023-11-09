@@ -41,11 +41,7 @@ pipeline {
                 }
             }
         }
-        stage('Print hosts-file') {
-            steps {
-                sh "cat ./ansible/hosts"
-            }
-        }        
+       
     }
     
 }
