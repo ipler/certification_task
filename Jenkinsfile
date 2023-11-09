@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Copy key to WORKSPACE.') {
             steps {
-                sh 'cp /var/lib/jenkins/aws___key_pair_rsa_1_.pem ${env.WORKSPACE}/ansible'
+                sh 'cp /var/lib/jenkins/aws___key_pair_rsa_1_.pem ${env.WORKSPACE}/terraform'
             }
         }
         stage('Terraform') {
