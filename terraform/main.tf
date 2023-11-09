@@ -91,6 +91,6 @@ resource "aws_instance" "prod" {
   }
 
   provisioner "local-exec" {
-    command = "echo '[prod]' >> ansible/hosts && echo ${aws_instance.prod[0].public_ip} >> ansible/hosts"  
+    command = "echo '[prod]' >> ../ansible/hosts && echo ${aws_instance.prod[0].public_ip} >> ../ansible/hosts"  
   }
 }
