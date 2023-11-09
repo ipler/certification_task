@@ -48,6 +48,18 @@ resource "aws_instance" "build" {
     volume_type = "gp2"
   }
   key_name = "aws___key_pair_rsa_1_"
+
+  # Wait to ssh connect.
+  provisioner "remote-exec" {
+    inline = ["echo 'INSTANCE build UP !'"]
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = file("./aws___key_pair_rsa_1_.pem")
+      host        = self.public_dns
+    }
+  }
+
   provisioner "local-exec" {
     command = "echo '[build]' >> ./ansible/hosts && echo ${aws_instance.build[0].public_ip} >> ./ansible/hosts"  
   }
@@ -66,6 +78,18 @@ resource "aws_instance" "prod" {
     volume_type = "gp2"
   }
   key_name = "aws___key_pair_rsa_1_"
+
+  # Wait to ssh connect.
+  provisioner "remote-exec" {
+    inline = ["echo 'INSTANCE prod UP !'"]
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = file("./aws___key_pair_rsa_1_.pem")
+      host        = self.public_dns
+    }
+  }
+
   provisioner "local-exec" {
     command = "echo '[prod]' >> ./ansible/hosts && echo ${aws_instance.prod[0].public_ip} >> ./ansible/hosts"  
   }
