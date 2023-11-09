@@ -19,6 +19,8 @@ pipeline {
                     fileOperations([fileCopyOperation(excludes: '', flattenFiles: true, includes: 'aws___key_pair_rsa_1_.pem', targetLocation: "${WORKSPACE}")])
                 }
             }
+        }
+        stage('Proverka') {
             steps {
                 sh "pwd && ls -la ./"
             }
