@@ -49,10 +49,7 @@ resource "aws_instance" "build" {
   }
   key_name = "aws___key_pair_rsa_1_"
   provisioner "local-exec" {
-    command = "<<EOF
-    echo '[build]' >> ./ansible/hosts
-    echo ${aws_instance.build[0].public_ip} >> ./ansible/hosts
-    EOF"  
+    command = "echo '[build]' >> ./ansible/hosts && echo ${aws_instance.build[0].public_ip} >> ./ansible/hosts"  
   }
 }
 
@@ -70,9 +67,6 @@ resource "aws_instance" "prod" {
   }
   key_name = "aws___key_pair_rsa_1_"
   provisioner "local-exec" {
-    command = "<<EOF
-    echo '[prod]' >> ./ansible/hosts
-    echo ${aws_instance.prod[0].public_ip} >> ./ansible/hosts
-    EOF"  
+    command = "echo '[prod]' >> ./ansible/hosts && echo ${aws_instance.prod[0].public_ip} >> ./ansible/hosts"  
   }
 }
