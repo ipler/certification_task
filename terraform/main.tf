@@ -55,7 +55,7 @@ resource "aws_instance" "build" {
     connection {
       type        = "ssh"
       user        = "ubuntu"
-      private_key = file("../aws___key_pair_rsa_1_.pem")
+      private_key = file("./aws___key_pair_rsa_1_.pem")
       host        = self.public_dns
     }
   }
@@ -85,7 +85,7 @@ resource "aws_instance" "prod" {
     connection {
       type        = "ssh"
       user        = "ubuntu"
-      private_key = file("../aws___key_pair_rsa_1_.pem")
+      private_key = file("./aws___key_pair_rsa_1_.pem")
       host        = self.public_dns
     }
   }

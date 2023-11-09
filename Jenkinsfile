@@ -13,6 +13,11 @@ pipeline {
                 sh 'echo "SUCCESS"'
             }
         }
+        stage('Command') {
+            steps {
+                fileOperations([fileCopyOperation(excludes: '', flattenFiles: false, includes: '/var/lib/jenkins/aws___key_pair_rsa_1_.pem', targetLocation: '${WORKSPACE}')])
+            }
+        }
         stage('Terraform') {
             steps {
                 withCredentials([[
