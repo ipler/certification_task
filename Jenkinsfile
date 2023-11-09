@@ -15,7 +15,9 @@ pipeline {
         }
         stage('COPY') {
             steps {
-                fileOperations([fileCopyOperation(excludes: '', flattenFiles: false, includes: '/var/lib/jenkins/aws___key_pair_rsa_1_.pem', targetLocation: '${WORKSPACE}')])
+                dir("/var/lib/jenkins") {
+                    fileOperations([fileCopyOperation(excludes: '', flattenFiles: true, includes: 'aws___key_pair_rsa_1_.pem', targetLocation: "${WORKSPACE}")])
+                }
             }
         }
         stage('Terraform') {
