@@ -13,7 +13,7 @@ pipeline {
                 sh 'echo "SUCCESS"'
             }
         }
-        stage('Command') {
+        stage('COPY') {
             steps {
                 fileOperations([fileCopyOperation(excludes: '', flattenFiles: false, includes: '/var/lib/jenkins/aws___key_pair_rsa_1_.pem', targetLocation: '${WORKSPACE}')])
             }
