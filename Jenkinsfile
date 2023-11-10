@@ -15,7 +15,7 @@ pipeline {
         }
         stage('COPY') {
             steps {
-                dir("/var/lib/jenkins") {
+                dir("/var/lib/jenkins/ansible") {
                     fileOperations([fileCopyOperation(excludes: '', flattenFiles: true, includes: 'aws___key_pair_rsa_1_.pem', targetLocation: "${WORKSPACE}")])
                 }
             }
