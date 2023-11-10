@@ -23,6 +23,8 @@ pipeline {
         stage('Proverka') {
             steps {
                 sh "pwd && ls -la ./"
+                sh "ls -la ./ansible"
+                sh "cat ./ansible/hosts"
             }
         }
         stage('Terraform') {
