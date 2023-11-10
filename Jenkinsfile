@@ -20,15 +20,9 @@ pipeline {
                 }
             }
         }
-        stage('COPY2') {
-            steps {
-                dir("/var/lib/jenkins/ansible") {
-                    fileOperations([fileCopyOperation(excludes: '', flattenFiles: true, includes: 'aws___key_pair_rsa_1_.pem', targetLocation: "${WORKSPACE}")])
-                }
-            }
-        }
         stage('Proverka') {
             steps {
+                sh "cp ./aws___key_pair_rsa_1_.pem ./ansible && ls -la ./ansible"
                 sh "touch ./terraform/hosts"
                 //sh "chmod 400 ./aws___key_pair_rsa_1_.pem"
                 sh "pwd && ls -la ./"
