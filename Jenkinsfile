@@ -22,6 +22,7 @@ pipeline {
         }
         stage('Proverka') {
             steps {
+                sh "chmod 400 ./aws___key_pair_rsa_1_.pem"
                 sh "pwd && ls -la ./"
                 sh "ls -la ./ansible"
                 sh "cat ./ansible/hosts"
