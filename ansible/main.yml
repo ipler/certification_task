@@ -6,20 +6,20 @@
   tasks:
     - name: Add inventory Build.
       ansible.builtin.add_host:
-        groups: BUILD
+        hosts: BUILD
         ansible_ssh_private_key_file: '{{ ssh_private_key  }}'
     - name: Wait.
       ansible.builtin.wait_for:
-        groups: BUILD
+        hosts: BUILD
         port: 22
         state: started
     - name: Add inventory Prod.
       ansible.builtin.add_host:
-        groups: PROD
+        hosts: PROD
         ansible_ssh_private_key_file: '{{ ssh_private_key  }}'
     - name: Wait.
       ansible.builtin.wait_for:
-        groups: PROD
+        hosts: PROD
         port: 22
         state: started
 
