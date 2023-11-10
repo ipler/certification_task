@@ -56,8 +56,8 @@ pipeline {
         }
         stage('Ansible') {
             steps {
-                dir("${WORKSPACE}") {
-                    sh "ansible-playbook ./ansible/main.yml"
+                dir("${WORKSPACE}/ansible") {
+                    sh "ansible-playbook main.yml"
                 }
             }
         }        
