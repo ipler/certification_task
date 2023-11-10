@@ -54,6 +54,11 @@ pipeline {
                 sh "rm ./aws___key_pair_rsa_1_.pem && ls -la ./"
             }
         }
+        stage('Ansible') {
+            steps {
+                sh "ansible-playbook ./ansible/main.yml"
+            }
+        }        
     }
     
 }
