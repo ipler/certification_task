@@ -15,6 +15,13 @@ pipeline {
         }
         stage('COPY') {
             steps {
+                dir("/var/lib/jenkins") {
+                    fileOperations([fileCopyOperation(excludes: '', flattenFiles: true, includes: 'aws___key_pair_rsa_1_.pem', targetLocation: "${WORKSPACE}")])
+                }
+            }
+        }
+        stage('COPY') {
+            steps {
                 dir("/var/lib/jenkins/ansible") {
                     fileOperations([fileCopyOperation(excludes: '', flattenFiles: true, includes: 'aws___key_pair_rsa_1_.pem', targetLocation: "${WORKSPACE}")])
                 }
@@ -52,6 +59,7 @@ pipeline {
                 sh "cat ./ansible/hosts"
                 sh "rm ./terraform/hosts && ls -la ./terraform"
                 sh "rm ./aws___key_pair_rsa_1_.pem && ls -la ./"
+                sh "rm ./ansible/aws___key_pair_rsa_1_.pem && ls -la ./ansible"
             }
         }
         stage('Ansible') {
