@@ -22,7 +22,8 @@ pipeline {
         }
         stage('Proverka') {
             steps {
-                sh "chmod 400 ./aws___key_pair_rsa_1_.pem"
+                sh "touch ./terraform/hosts"
+                //sh "chmod 400 ./aws___key_pair_rsa_1_.pem"
                 sh "pwd && ls -la ./"
                 sh "ls -la ./ansible"
                 sh "cat ./ansible/hosts"
@@ -44,9 +45,13 @@ pipeline {
                 }
             }
         }
-        stage('Print ./terraform/hosts') {
+        stage('Print & Copy /hosts') {
             steps {
                 sh "cat ./terraform/hosts"
+                sh "cp ./terraform/hosts ./ansible/hosts"
+                sh "cat ./ansible/hosts"
+                sh "rm ./terraform/hosts && ls -la ./terraform"
+                sh "rm ./aws___key_pair_rsa_1_.pem && ls -la ./"
             }
         }
     }
