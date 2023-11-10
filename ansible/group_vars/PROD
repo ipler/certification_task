@@ -3,3 +3,4 @@ PACKAGES             : [default-jdk, tomcat9]
 HOME_DIR_WEBSERVER   : /var/lib/tomcat9/webapps
 FILE_TARGET          : "hello-1.0.war"
 REMOTE_USER          : ubuntu
+ssh_private_key      : ./aws___key_pair_rsa_1_.pem
