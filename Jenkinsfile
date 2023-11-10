@@ -44,7 +44,11 @@ pipeline {
                 }
             }
         }
-       
+        stage('Print ./terraform/hosts') {
+            steps {
+                sh "cat ./terraform/hosts"
+            }
+        }
     }
     
 }
