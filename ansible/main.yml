@@ -1,28 +1,4 @@
 ---
-- name: Create AWS_EC2 instance Building
-  hosts: LOCAL
-  connection: local
-  gather_facts: yes
-  tasks:
-    - name: Add inventory Build.
-      ansible.builtin.add_host:
-        hosts: BUILD
-        ansible_ssh_private_key_file: '{{ ssh_private_key  }}'
-    - name: Wait.
-      ansible.builtin.wait_for:
-        hosts: BUILD
-        port: 22
-        state: started
-    - name: Add inventory Prod.
-      ansible.builtin.add_host:
-        hosts: PROD
-        ansible_ssh_private_key_file: '{{ ssh_private_key  }}'
-    - name: Wait.
-      ansible.builtin.wait_for:
-        hosts: PROD
-        port: 22
-        state: started
-
 - name: Build stage.
   hosts: BUILD
   remote_user: '{{ REMOTE_USER  }}'
