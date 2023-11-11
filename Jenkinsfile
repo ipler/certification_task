@@ -61,18 +61,17 @@ pipeline {
                 ansiblePlaybook credentialsId: '7c300873-afd0-4743-ad3e-4e36ddb3c3c0', disableHostKeyChecking: true, installation: 'ansible', inventory: './ansible/hosts', playbook: './ansible/main.yml', vaultTmpPath: ''
             }
         }
-        stage('COPY targetFile to workspace') {
+        stage('MOVE targetFile to workspace') {
             steps {
                 dir("/tmp") {
                     fileOperations([fileCopyOperation(excludes: '', flattenFiles: true, includes: 'hello-1.0.war', targetLocation: "${WORKSPACE}")])
+                    sh "rm /tmp/hello-1.0.war"
                 }
             }
         }
 		stage('Build image') {
 			steps {
-				dir("${WORKSPACE}") {
-					sh 'docker build -t gotofront/webapp:1.0 .'
-				}
+				sh 'docker build -t gotofront/webapp:1.0 .'
 			}
 		}
 		stage('DockerHub login & Push') {
