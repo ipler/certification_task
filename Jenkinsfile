@@ -58,8 +58,9 @@ pipeline {
         }
         stage('Ansible') {
             steps {
-                dir("${WORKSPACE}/ansible") {
-                    sh "ansible-playbook main.yml"
+                ansiblePlaybook credentialsId: '7c300873-afd0-4743-ad3e-4e36ddb3c3c0', disableHostKeyChecking: true, installation: 'ansible', inventory: './ansible/hosts', playbook: './ansible/main.yml', vaultTmpPath: ''
+                //dir("${WORKSPACE}/ansible") {
+                //    sh "ansible-playbook main.yml"
                 }
             }
         }        
