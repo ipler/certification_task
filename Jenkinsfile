@@ -62,8 +62,7 @@ pipeline {
                 //dir("${WORKSPACE}/ansible") {
                 //    sh "ansible-playbook main.yml"
                 }
-            }
-        }        
+        }       
     }
     
 }
