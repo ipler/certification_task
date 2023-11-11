@@ -30,7 +30,7 @@ pipeline {
                 sh "cat ./ansible/hosts"
             }
         }
-        stage('Terraform') {
+        stage('Terraform initializing ec2 instances') {
             steps {
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding',
@@ -56,13 +56,40 @@ pipeline {
                 sh "rm ./ansible/aws___key_pair_rsa_1_.pem && ls -la ./ansible"
             }
         }
-        stage('Ansible') {
+        stage('Ansible configuration ec2 instances') {
             steps {
                 ansiblePlaybook credentialsId: '7c300873-afd0-4743-ad3e-4e36ddb3c3c0', disableHostKeyChecking: true, installation: 'ansible', inventory: './ansible/hosts', playbook: './ansible/main.yml', vaultTmpPath: ''
-                //dir("${WORKSPACE}/ansible") {
-                //    sh "ansible-playbook main.yml"
+            }
+        }
+        stage('COPY targetFile to workspace') {
+            steps {
+                dir("/tmp") {
+                    fileOperations([fileCopyOperation(excludes: '', flattenFiles: true, includes: 'hello-1.0.war', targetLocation: "${WORKSPACE}")])
                 }
-        }       
+            }
+        }
+		stage('Build image') {
+			steps {
+				dir("${WORKSPACE}") {
+					sh 'docker build -t gotofront/webapp:1.0 .'
+				}
+			}
+		}
+		stage('DockerHub login & Push') {
+			steps {
+				withDockerRegistry(credentialsId: '377826f5-81fd-4c82-bc20-90ae1d50f2f5', url: 'https://index.docker.io/v1/') {
+					sh 'docker push gotofront/webapp:1.0'
+				}
+			}
+		}
+		stage('Stop/Pull/Run docker image') {
+			steps {
+				sshagent(credentials : ['7c300873-afd0-4743-ad3e-4e36ddb3c3c0']) {
+					sh '''docker stop $(docker container ls | grep 8080 | awk '{print $1}' | head -1)'''
+					sh 'docker pull gotofront/webapp:1.0 && docker run -d -p 80:8080 gotofront/webapp:1.0'
+				}
+			}
+		}       
     }
     
 }
