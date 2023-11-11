@@ -65,7 +65,7 @@ pipeline {
             steps {
                 dir("/tmp") {
                     fileOperations([fileCopyOperation(excludes: '', flattenFiles: true, includes: 'hello-1.0.war', targetLocation: "${WORKSPACE}")])
-                    sh "rm /tmp/hello-1.0.war"
+                    //sh "rm /tmp/hello-1.0.war"
                 }
             }
         }
