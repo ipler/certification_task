@@ -88,7 +88,7 @@ pipeline {
 		}  
         stage('env. IP_PROD') {
 			steps {
-                sh "echo \$IP_PROD"
+                sh "echo $IP_PROD"
 			}
 		}     
     }
