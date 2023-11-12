@@ -84,7 +84,7 @@ pipeline {
 		stage('Stop/Pull/Run docker image') {
 			steps {
 				sshagent(credentials : ['7c300873-afd0-4743-ad3e-4e36ddb3c3c0']) {
-					sh '''docker stop $(docker container ls | grep 8080 | awk '{print $1}' | head -1)'''
+					//sh '''docker stop $(docker container ls | grep 8080 | awk '{print $1}' | head -1)'''
 					sh 'docker pull gotofront/webapp:1.0 && docker run -d -p 80:8080 gotofront/webapp:1.0'
 				}
 			}
