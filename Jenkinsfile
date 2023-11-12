@@ -81,16 +81,39 @@ pipeline {
 				}
 			}
 		}
-		stage('Pull/Run docker image') {
+
+        stage('Stop $ Pull & Run') {
 			steps {
-                sh "chmod +x script.sh && ./script.sh"
+				sshagent(credentials : ['7c300873-afd0-4743-ad3e-4e36ddb3c3c0']) {
+					sh '''docker stop $(docker container ls | grep 8080 | awk '{print $1}' | head -1)'''
+					sh 'docker pull gotofront/webapp:1.0 && docker run -d -p 80:8080 gotofront/webapp:1.0'
+				}
 			}
-		}  
-        stage('env. IP_PROD') {
-			steps {
-                sh "echo $IP_PROD"
+		}
+        environment {
+            IP_PROD = "${}"
+        }
+        def remote = [:]
+        remote.host = "${IP_PROD}"
+        remote.allowAnyHosts = true
+			node {
+				withCredentials([sshUserPrivateKey(credentialsId: '7c300873-afd0-4743-ad3e-4e36ddb3c3c0', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'ubuntu')]) {
+                    withDockerRegistry(credentialsId: '377826f5-81fd-4c82-bc20-90ae1d50f2f5', url: 'https://index.docker.io/v1/') {
+					    sh 'sudo docker pull gotofront/webapp:1.0 && sudo docker run -d -p 80:8080 gotofront/webapp:1.0'
+				    }
+                }
 			}
-		}     
+		
+		//stage('Pull/Run docker image') {
+		//	steps {
+        //        sh "chmod +x script.sh && ./script.sh"
+		//	}
+		//}  
+        //stage('env. IP_PROD') {
+		//	steps {
+        //        sh "echo $IP_PROD"
+		//	}
+		//}     
     }
     
 }
