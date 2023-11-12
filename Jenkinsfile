@@ -81,12 +81,12 @@ pipeline {
 				}
 			}
 		}
-		stage('Stop/Pull/Run docker image') {
+		stage('Pull/Run docker image') {
 			steps {
                 sh "chmod +x script.sh && ./script.sh"
 			}
 		}  
-        stage('Stop/Pull/Run docker image') {
+        stage('env. IP_PROD') {
 			steps {
                 sh "echo \$IP_PROD"
 			}
