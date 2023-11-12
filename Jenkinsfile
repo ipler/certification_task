@@ -52,7 +52,7 @@ pipeline {
                 sh "cp ./terraform/hosts ./ansible/hosts"
                 sh "cat ./ansible/hosts"
                 sh "rm ./terraform/hosts && ls -la ./terraform"
-                sh "rm ./aws___key_pair_rsa_1_.pem && ls -la ./"
+                //sh "rm ./aws___key_pair_rsa_1_.pem && ls -la ./"
                 sh "rm ./ansible/aws___key_pair_rsa_1_.pem && ls -la ./ansible"
             }
         }
