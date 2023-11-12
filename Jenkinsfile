@@ -94,7 +94,7 @@ pipeline {
                 //IPPROD=\$(grep -A1 '[PROD]' ./ansible/hosts | grep -v "[PROD]")
                 sh "chmod +x script.sh && ./script.sh"
                 sh """
-                ssh ubuntu@\$IP_PROD -i ./aws___key_pair_rsa_1_.pem "docker pull gotofront/webapp:1.0 && docker run -d -p 80:8080 gotofront/webapp:1.0"
+                ssh ubuntu@$IP_PROD -i ./aws___key_pair_rsa_1_.pem "docker pull gotofront/webapp:1.0 && docker run -d -p 80:8080 gotofront/webapp:1.0"
                 """
 			}
 		}       
