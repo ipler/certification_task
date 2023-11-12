@@ -83,19 +83,14 @@ pipeline {
 		}
 		stage('Stop/Pull/Run docker image') {
 			steps {
-				//sshagent(credentials : ['7c300873-afd0-4743-ad3e-4e36ddb3c3c0']) {
-					//sh '''docker stop $(docker container ls | grep 8080 | awk '{print $1}' | head -1)'''
-				//	sh 'docker pull gotofront/webapp:1.0 && docker run -d -p 80:8080 gotofront/webapp:1.0'
-                //}
-				//sh "IP_PROD=\$(awk '/\[PROD\]/{getline; print}' ./ansible/hosts)"
-                //enviroment {
-                //    IP_PROD = """${sh(grep -A1 '/\[PROD/\]' ./ansible/hosts | grep -v "/\[PROD/\]")}"""
-                //}
-                //IPPROD=\$(grep -A1 '[PROD]' ./ansible/hosts | grep -v "[PROD]")
                 sh "chmod +x script.sh && ./script.sh"
-                //ssh ubuntu@$IP_PROD -i ./aws___key_pair_rsa_1_.pem "docker pull gotofront/webapp:1.0 && docker run -d -p 80:8080 gotofront/webapp:1.0"
 			}
-		}       
+		}  
+        stage('Stop/Pull/Run docker image') {
+			steps {
+                sh "echo \$IP_PROD"
+			}
+		}     
     }
     
 }
