@@ -24,8 +24,4 @@
   - name: Install java & tomcat9.
     apt: name={{item}} state=present
     with_items: "{{PACKAGES}}"
-#  - name: Status tomcat
-#    service: name=tomcat9 state=started
-#  - name: Copy .war file.
-#    copy: src="/tmp/{{FILE_TARGET}}" dest="{{HOME_DIR_WEBSERVER}}"
 ...

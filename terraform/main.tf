@@ -61,7 +61,7 @@ resource "aws_instance" "build" {
   }
 
   provisioner "local-exec" {
-    command = "echo '[LOCAL]' >> ./hosts && echo 'localhost' >> ./hosts && echo '[BUILD]' >> ./hosts && echo ${aws_instance.build[0].public_ip} >> ./hosts"  
+    command = "echo '[BUILD]' >> ./hosts && echo ${aws_instance.build[0].public_ip} >> ./hosts"  
   }
 }
 
