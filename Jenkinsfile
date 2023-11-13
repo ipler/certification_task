@@ -17,11 +17,6 @@ pipeline {
                 }
             }
         }
-        stage('Create file /terraform/hosts') {
-            steps {
-                sh "touch ./terraform/hosts"
-            }
-        }
         stage('Terraform initializing ec2 instances') {
             steps {
                 withCredentials([[
