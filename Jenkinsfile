@@ -32,11 +32,6 @@ pipeline {
                 }
             }
         }
-        stage('Creating /ansible/hosts') {
-            steps {
-                sh "mv ./terraform/hosts ./ansible/hosts"
-            }
-        }
         stage('Ansible configuration ec2 instances') {
             steps {
                 ansiblePlaybook credentialsId: '7c300873-afd0-4743-ad3e-4e36ddb3c3c0', 

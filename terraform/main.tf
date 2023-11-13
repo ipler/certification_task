@@ -61,7 +61,7 @@ resource "aws_instance" "build" {
   }
 
   provisioner "local-exec" {
-    command = "echo '[BUILD]' >> ./hosts && echo ${aws_instance.build[0].public_ip} >> ./hosts"  
+    command = "echo '[BUILD]' >> ../ansible/hosts && echo ${aws_instance.build[0].public_ip} >> ../ansible/hosts"  
   }
 }
 
@@ -91,6 +91,6 @@ resource "aws_instance" "prod" {
   }
 
   provisioner "local-exec" {
-    command = "echo '[PROD]' >> ./hosts && echo ${aws_instance.prod[0].public_ip} >> ./hosts"  
+    command = "echo '[PROD]' >> ../ansible/hosts && echo ${aws_instance.prod[0].public_ip} >> ../ansible/hosts"  
   }
 }
