@@ -13,9 +13,8 @@ pipeline {
                 dir("/var/lib/jenkins") {
                     fileOperations([fileCopyOperation(excludes: '', 
                                                         flattenFiles: true, includes: 'aws___key_pair_rsa_1_.pem', 
-                                                        targetLocation: "${WORKSPACE}")])
+                                                        targetLocation: "${WORKSPACE}/ansible")])
                 }
-                sh "mv ./aws___key_pair_rsa_1_.pem ./ansible"
             }
         }
         stage('Create file /terraform/hosts') {
